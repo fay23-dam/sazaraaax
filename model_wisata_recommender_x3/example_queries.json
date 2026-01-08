@@ -1,0 +1,77 @@
+{
+  "queries_by_type": {
+    "location_based": [
+      "rekomendasi wisata di sorong selatan",
+      "wisata di kota sorong",
+      "wisata di raja ampat",
+      "wisata di teminabuan"
+    ],
+    "category_based": [
+      "pantai di sorong",
+      "sungai murah",
+      "air terjun gratis",
+      "wisata eksklusif"
+    ],
+    "facility_based": [
+      "wisata dengan penginapan",
+      "wisata dengan kolam renang",
+      "wisata dengan restoran",
+      "wisata dengan parkir luas"
+    ],
+    "price_based": [
+      "wisata gratis",
+      "wisata murah dibawah 20 ribu",
+      "wisata mahal dengan fasilitas lengkap",
+      "wisata harga 50-100 ribu"
+    ],
+    "combined": [
+      "pantai dengan penginapan di kota sorong",
+      "wisata eksklusif dengan kolam renang",
+      "sungai murah di sorong selatan",
+      "air terjun gratis dengan toilet"
+    ],
+    "search_location": [
+      "dimana pantai tanjung kasuari",
+      "lokasi mooi park sorong",
+      "ada dimana pantai alinda",
+      "letak sungai sembra"
+    ]
+  },
+  "query_parsing_examples": [
+    {
+      "query": "wisata dengan kolam renang murah di kota sorong",
+      "parsed_components": {
+        "locations": [
+          "kota sorong"
+        ],
+        "categories": [],
+        "facility_filters": [
+          "kolam_renang"
+        ],
+        "price_filters": [
+          {
+            "type": "murah",
+            "min": 0,
+            "max": 50000
+          }
+        ],
+        "intent": "facility"
+      }
+    },
+    {
+      "query": "pantai eksklusif di raja ampat",
+      "parsed_components": {
+        "locations": [
+          "raja ampat"
+        ],
+        "categories": [
+          "pantai",
+          "eksklusif"
+        ],
+        "facility_filters": [],
+        "price_filters": [],
+        "intent": "search"
+      }
+    }
+  ]
+}

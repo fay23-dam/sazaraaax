@@ -1,0 +1,39 @@
+{
+  "model_name": "Hybrid Tourism Recommender System",
+  "version": "1.0.0",
+  "description": "Sistem rekomendasi wisata Papua Barat Daya dengan Hybrid CBF + XGBoost",
+  "created_date": "2026-01-02T06:15:05.319167",
+  "model_type": "Hybrid (70% CBF + 30% XGBoost)",
+  "data_statistics": {
+    "total_wisata": 51,
+    "total_kategori": 45,
+    "avg_rating": 4.407843137254901,
+    "avg_price_min": 307058.82352941175,
+    "lokasi_unik": 4
+  },
+  "model_performance": {
+    "xgboost_training_r2": 0.9288521381423612,
+    "xgboost_testing_r2": -0.36528660005824154,
+    "xgboost_cv_r2_mean": -0.08201522984240099,
+    "xgboost_cv_r2_std": 0.3008716867027734,
+    "xgboost_train_rmse": 2.0405885641756676,
+    "xgboost_test_rmse": 6.461141135006597,
+    "system_accuracy": 84.0
+  },
+  "feature_details": {
+    "total_features_xgb": 123,
+    "cbf_features_shape": 73,
+    "tfidf_features_shape": 50,
+    "kategori_features": 45,
+    "facility_features": 6,
+    "turunan_features": 18,
+    "harga_features": 4
+  },
+  "model_components": {
+    "preprocessor": "EnhancedPreprocessor",
+    "vectorizer": "TfidfVectorizer",
+    "categorical_encoder": "MultiLabelBinarizer + LabelEncoder",
+    "ml_model": "XGBoost Regressor",
+    "similarity_metric": "Cosine Similarity"
+  }
+}

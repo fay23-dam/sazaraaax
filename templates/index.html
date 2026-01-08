@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Rekomendasi Wisata Papua Barat Daya</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Swiper JS for Carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0c4b33 0%, #1a7d5d 50%, #2ebf91 100%);
+      min-height: 100vh;
+    }
+    
+    .pulse-button {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(245, 120, 2, 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 20px rgba(245, 120, 2, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(245, 120, 2, 0);
+      }
+    }
+    
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Chat specific styles */
+    .message-user {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .message-bot {
+      background: white;
+      border: 1px solid #c8e6c9;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+    
+    .skeleton-animation {
+      animation: pulse 1.5s infinite;
+    }
+    
+    .typing-dot {
+      animation: pulse 1.4s infinite;
+    }
+    
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    /* Smooth transitions */
+    .slide-up {
+      animation: slideUp 0.4s ease;
+    }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Swiper Custom Styles */
+    .swiper {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+    }
+    
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 20px;
+    }
+    
+    .swiper-pagination-bullet {
+      background: white;
+      opacity: 0.5;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background: #f57802;
+      opacity: 1;
+    }
+    
+    /* New floating input styles */
+    .floating-input-container {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      padding-top: 10px;
+    }
+    
+    .quick-questions-container {
+      position: fixed;
+      bottom: 85px;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      transition: all 0.3s ease;
+      transform-origin: bottom center;
+    }
+    
+    .quick-questions-hidden {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+    }
+    
+    .quick-questions-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .chat-area-container {
+      padding-bottom: 180px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .expand-button {
+      transition: transform 0.3s ease;
+    }
+    
+    .expand-button.rotated {
+      transform: rotate(45deg);
+    }
+    
+    /* No image placeholder */
+    .no-image-placeholder {
+      background: linear-gradient(135deg, #e0f5e0, #d1e7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #338c56;
+      font-weight: 500;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #2e7d32;
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+  <!-- Main Container with Chat -->
+  <div class="min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-800 to-green-900 text-white py-4 px-4 shadow-lg sticky top-0 z-50">
+      <div class="flex items-center justify-between max-w-6xl mx-auto">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-white/25 rounded-full flex items-center justify-center shadow-lg">
+            <i class="fas fa-tree text-white text-2xl"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold text-[#f57802]">Portal Rekomendasi Wisata Papua Barat Daya</h1>
+            <p class="text-sm text-green-200">Asisten AI untuk rekomendasi wisata terbaik</p>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <button id="pedoman-button" class="bg-[#f57802] hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+            <i class="fas fa-book-open mr-2"></i>Pedoman
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    
+    <!-- Main Content: Chat Area -->
+    <div class="flex-1 max-w-6xl mx-auto w-full px-4 mt-6 chat-area-container">
+      <div id="chat-area" class="flex flex-col gap-4 py-2 pb-6">
+        <!-- Messages will be inserted here -->
+      </div>
+      
+      <!-- Typing Indicator -->
+      <div id="typing-indicator" class="hidden bg-white rounded-2xl p-4 border border-green-200 w-fit mt-2 mb-4">
+        <div class="flex gap-2">
+          <div class="typing-dot w-3 h-3 bg-green-700 rounded-full"></div>
+          <div class="typing-dot w-3 h-3 bg-green-700 rounded-full"></div>
+          <div class="typing-dot w-3 h-3 bg-green-700 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Questions - Hidden by default -->
+    <div id="quick-questions-container" class="quick-questions-container quick-questions-hidden">
+      <div class="max-w-3xl mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-2 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-green-200">
+          <button onclick="sendQuickQuestion('wisata di teminabuan')" 
+                  class="border border-green-300 text-green-800 bg-white px-4 py-2 rounded-full text-sm hover:bg-green-500 hover:text-white hover:border-green-500 transition-all">
+            🏖️ Wisata di Teminabuan
+          </button>
+          <button onclick="sendQuickQuestion('sungai di maybrat')" 
+                  class="border border-green-300 text-green-800 bg-white px-4 py-2 rounded-full text-sm hover:bg-green-500 hover:text-white hover:border-green-500 transition-all">
+            🌊 Sungai di Maybrat
+          </button>
+          <button onclick="sendQuickQuestion('pantai murah di sorong')" 
+                  class="border border-green-300 text-green-800 bg-white px-4 py-2 rounded-full text-sm hover:bg-green-500 hover:text-white hover:border-green-500 transition-all">
+            💰 Pantai Murah di Sorong
+          </button>
+          <button onclick="sendQuickQuestion('dimana kali kaca')" 
+                  class="border border-green-300 text-green-800 bg-white px-4 py-2 rounded-full text-sm hover:bg-green-500 hover:text-white hover:border-green-500 transition-all">
+            📍 Lokasi Tempat
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Floating Input Area -->
+    <div class="floating-input-container">
+      <div class="max-w-3xl mx-auto flex gap-3 items-center px-4">
+        <!-- Expand/Collapse Button -->
+        <button id="expand-button" class="expand-button bg-gradient-to-r from-green-700 to-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+        
+        <input type="text" maxlength="120" 
+               class="flex-1 border-2 border-green-300 rounded-full px-5 py-3 text-base focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 shadow-sm" 
+               placeholder="Tanya tentang wisata (contoh: pantai murah di sorong)..." 
+               id="user-input" 
+               autocomplete="off">
+        <button class="bg-gradient-to-r from-green-800 to-green-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow" 
+                id="send-button">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Modal for Detail View -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/75 z-50 overflow-auto p-4">
+      <div class="bg-white rounded-xl max-w-3xl mx-auto my-8 relative slide-up max-h-[90vh] overflow-y-auto">
+        <span class="close absolute top-3 right-4 text-3xl text-gray-500 hover:text-black cursor-pointer z-10">×</span>
+        
+        <!-- Carousel Container -->
+        <div id="modal-carousel" class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <!-- Slides will be added dynamically -->
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+        
+        <div class="p-5">
+          <h2 id="modal-title" class="text-2xl font-bold text-green-900 mb-4"></h2>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5 p-4 bg-gray-50 rounded-lg">
+            <div>
+              <p class="text-xs text-gray-500 font-medium mb-1">Rating</p>
+              <p id="modal-rating" class="font-semibold"></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 font-medium mb-1">Harga</p>
+              <p id="modal-price" class="font-semibold"></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 font-medium mb-1">Review</p>
+              <p id="modal-review" class="font-semibold"></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 font-medium mb-1">Kategori</p>
+              <p id="modal-category" class="font-semibold text-sm"></p>
+            </div>
+            <div class="col-span-2 md:col-span-4">
+              <p class="text-xs text-gray-500 font-medium mb-1">Lokasi</p>
+              <p id="modal-location" class="font-semibold"></p>
+            </div>
+          </div>
+          
+          <div class="mb-5">
+            <h3 class="font-bold text-green-800 mb-2">Deskripsi</h3>
+            <p id="modal-desc" class="text-gray-700"></p>
+          </div>
+          
+          <div class="mb-5">
+            <h3 class="font-bold text-green-800 mb-2">Fasilitas</h3>
+            <div id="modal-facilities" class="flex flex-wrap gap-2">
+              <!-- Facilities will be added dynamically -->
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-5">
+            <div>
+              <h3 class="font-bold text-green-800 mb-2">Jam Operasional</h3>
+              <p id="modal-hours" class="text-gray-700"></p>
+            </div>
+          </div>
+          
+          <div id="modal-maps-container" class="mb-5 p-3 bg-gray-100 rounded-lg">
+            <p class="font-bold text-green-800 mb-1">📍 Lokasi di Maps:</p>
+            <p id="modal-maps" class="text-blue-600 break-words"></p>
+          </div>
+          
+          <div class="flex justify-end gap-3">
+            <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-5 py-2 rounded-lg font-medium">
+              Tutup
+            </button>
+            <button onclick="openMaps()" class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2">
+              <i class="fas fa-map-marker-alt"></i> Buka di Maps
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+  </div>
+<!-- Modal Pedoman -->
+<div id="pedoman-modal" class="hidden fixed inset-0 bg-black/75 z-50 overflow-auto p-4">
+  <div class="bg-white rounded-xl max-w-3xl mx-auto my-8 relative slide-up max-h-[90vh] overflow-y-auto">
+    <span class="close-pedoman absolute top-3 right-4 text-3xl text-gray-500 hover:text-black cursor-pointer z-10">×</span>
+    <div class="p-6">
+      <h2 class="text-2xl font-bold text-green-900 mb-6 flex items-center gap-2">
+        <i class="fas fa-book-open text-[#f57802]"></i> Pedoman Penggunaan Website
+      </h2>
+      
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-green-800 mb-2">1. Cara Bertanya</h3>
+          <p class="text-gray-700 mb-3">Anda dapat menanyakan rekomendasi wisata dengan cara:</p>
+          <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li>Mengetikkan pertanyaan di kolom input di bagian bawah halaman.</li>
+            <li>Menggunakan contoh pertanyaan yang sudah disediakan di tombol cepat.</li>
+            <li>Pertanyaan dapat berupa lokasi, jenis wisata, atau fasilitas yang diinginkan.</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold text-green-800 mb-2">2. Contoh Pertanyaan</h3>
+          <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li><span class="font-medium">"wisata di teminabuan"</span> - Mencari wisata di Kabupaten Teminabuan.</li>
+            <li><span class="font-medium">"sungai di maybrat"</span> - Mencari sungai di Kabupaten Maybrat.</li>
+            <li><span class="font-medium">"pantai murah di sorong"</span> - Mencari pantai dengan harga terjangkau di Sorong.</li>
+            <li><span class="font-medium">"dimana kali kaca"</span> - Mencari lokasi dari tempat bernama Kali Kaca.</li>
+            <li><span class="font-medium">"rekomendasi wisata keluarga dengan kolam renang"</span> - Mencari wisata untuk keluarga yang memiliki kolam renang.</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold text-green-800 mb-2">3. Fitur Website</h3>
+          <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li><span class="font-medium">Rekomendasi Wisata:</span> Sistem akan memberikan rekomendasi wisata sesuai dengan pertanyaan Anda.</li>
+            <li><span class="font-medium">Detail Wisata:</span> Klik tombol "Lihat Detail" pada card untuk melihat informasi lengkap termasuk foto, fasilitas, dan jam operasional.</li>
+            <li><span class="font-medium">Peta:</span> Setiap wisata dilengkapi dengan link Google Maps untuk memudahkan navigasi.</li>
+            <li><span class="font-medium">Pertanyaan Cepat:</span> Gunakan tombol titik tiga di samping kolom input untuk membuka pertanyaan cepat.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="flex justify-end mt-8">
+        <button onclick="closePedomanModal()" class="bg-gradient-to-r from-green-700 to-green-600 text-white px-5 py-2 rounded-lg font-medium hover:opacity-90 transition-all">
+          Mengerti, Terima Kasih
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    const pedomanButton = document.getElementById('pedoman-button');
+const pedomanModal = document.getElementById('pedoman-modal');
+const closePedomanBtn = document.querySelector('.close-pedoman');
+
+function openPedomanModal() {
+  pedomanModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePedomanModal() {
+  pedomanModal.classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
+
+pedomanButton.addEventListener('click', openPedomanModal);
+closePedomanBtn.addEventListener('click', closePedomanModal);
+
+pedomanModal.addEventListener('click', (e) => {
+  if (e.target === pedomanModal) {
+    closePedomanModal();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !pedomanModal.classList.contains('hidden')) {
+    closePedomanModal();
+  }
+});
+    // === GLOBAL VARIABLES ===
+    let currentModalData = null;
+    let swiper = null;
+    let quickQuestionsVisible = false;
+
+    // === ELEMENTS ===
+    const chatArea = document.getElementById('chat-area');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const modal = document.getElementById('modal');
+    const modalCarousel = document.getElementById('modal-carousel');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalMaps = document.getElementById('modal-maps');
+    const modalLocation = document.getElementById('modal-location');
+    const modalRating = document.getElementById('modal-rating');
+    const modalPrice = document.getElementById('modal-price');
+    const modalReview = document.getElementById('modal-review');
+    const modalCategory = document.getElementById('modal-category');
+    const modalHours = document.getElementById('modal-hours');
+    const modalFacilities = document.getElementById('modal-facilities');
+    const closeBtn = document.querySelector('.close');
+    const quickQuestionsContainer = document.getElementById('quick-questions-container');
+    const expandButton = document.getElementById('expand-button');
+
+    // === UTILITY FUNCTIONS ===
+    function scrollToBottom() {
+      setTimeout(() => {
+        const chatContainer = document.querySelector('.chat-area-container');
+        if (chatContainer) {
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+      }, 100);
+    }
+
+    function showTyping() {
+      typingIndicator.classList.remove('hidden');
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      typingIndicator.classList.add('hidden');
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function formatPrice(priceStr) {
+      if (!priceStr) return 'Tidak tersedia';
+      if (typeof priceStr === 'number') {
+        return `Rp ${priceStr.toLocaleString('id-ID')}`;
+      }
+      return priceStr.replace('Rp', 'Rp ').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    function slugify(text) {
+      if (!text) return 'default';
+      return text.toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+    }
+
+    // Fungsi untuk memeriksa apakah gambar ada
+    function checkImageExists(url) {
+      return new Promise((resolve) => {
+        // Skip pengecekan untuk placeholder atau data URL
+        if (url.includes('placeholder') || url.includes('data:image') || url.includes('no-image')) {
+          resolve(true);
+          return;
+        }
+        
+        const img = new Image();
+        const timer = setTimeout(() => {
+          img.onload = img.onerror = null;
+          resolve(false);
+        }, 1500); // Timeout 1.5 detik
+        
+        img.onload = () => {
+          clearTimeout(timer);
+          resolve(true);
+        };
+        img.onerror = () => {
+          clearTimeout(timer);
+          resolve(false);
+        };
+        img.src = url;
+      });
+    }
+
+    // Fungsi untuk mendapatkan gambar yang valid dari folder
+    async function getValidImagesFromFolder(wisataId, wisataName) {
+  const slug = slugify(wisataId || wisataName);
+  const basePath = `/static/${slug}`;
+  const validImages = [];
+  
+  const imageFormats = ['jpg', 'jpeg', 'png', 'webp'];
+  const maxImagesToCheck = 6;
+  
+  for (let i = 1; i <= maxImagesToCheck; i++) {
+    let found = false;
+    for (const format of imageFormats) {
+      const imgUrl = `${basePath}/${i}.${format}`;
+      try {
+        const exists = await checkImageExists(imgUrl);
+        if (exists) {
+          validImages.push(imgUrl);
+          found = true;
+          break; // keluar dari loop format, lanjut ke nomor berikutnya
+        }
+      } catch (error) {
+        // abaikan error, lanjut ke format berikutnya
+        console.log("gambar tidak ditemukan");
+      }
+    }
+    // Jika tidak ditemukan gambar untuk nomor i, hentikan pencarian
+    if (!found) {
+      break;
+    }
+  }
+  
+  const fallbackImages = [
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlMGY1ZTAiLz48dGV4dCB4PSIyMDAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzM4YzU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg=='
+  ];
+  
+  if (validImages.length === 0) {
+    return {
+      thumbnail: fallbackImages[0],
+      carousel: fallbackImages
+    };
+  }
+  
+  return {
+    thumbnail: validImages[0],
+    carousel: validImages
+  };
+}
+
+    // === MESSAGE FUNCTIONS ===
+    function addMessage(text, type = 'bot') {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `max-w-[85%] p-4 rounded-2xl ${type === 'user' ? 'message-user self-end' : 'message-bot self-start shadow-sm'}`;
+      
+      if (type === 'bot') {
+        let formattedText = text;
+        
+        // Convert markdown sederhana ke HTML
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formattedText = formattedText.replace(/\n\n/g, '</p><p>');
+        formattedText = formattedText.replace(/\n/g, '<br>');
+        
+        // Tambahkan emoji dan formatting
+        formattedText = formattedText.replace(/💡/g, '💡 ');
+        formattedText = formattedText.replace(/📍/g, '📍 ');
+        formattedText = formattedText.replace(/💰/g, '💰 ');
+        formattedText = formattedText.replace(/⭐/g, '⭐ ');
+        formattedText = formattedText.replace(/🏷️/g, '🏷️ ');
+        formattedText = formattedText.replace(/📝/g, '📝 ');
+        formattedText = formattedText.replace(/🌴/g, '🌴 ');
+        formattedText = formattedText.replace(/✨/g, '✨ ');
+        
+        messageDiv.innerHTML = `<div class="prose max-w-none">${formattedText}</div>`;
+      } else {
+        messageDiv.textContent = text;
+      }
+      
+      chatArea.appendChild(messageDiv);
+      scrollToBottom();
+      return messageDiv;
+    }
+
+    function addUserMessage(text) {
+      return addMessage(escapeHtml(text), 'user');
+    }
+
+    function addBotMessage(text) {
+      if (!text || text.trim() === '') {
+        return addMessage("Maaf, saya tidak bisa memberikan respons untuk saat ini.", 'bot');
+      }
+      
+      if (text.includes('<') && text.includes('>')) {
+        const div = document.createElement('div');
+        div.className = 'max-w-[85%] p-4 rounded-2xl message-bot self-start shadow-sm bg-white';
+        div.innerHTML = `<div class="prose max-w-none">${text}</div>`;
+        chatArea.appendChild(div);
+        scrollToBottom();
+        return div;
+      }
+      
+      return addMessage(text, 'bot');
+    }
+
+    function addErrorMessage(text) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl p-4 mb-2 border-l-4 border-red-700';
+      errorDiv.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i> ${escapeHtml(text)}`;
+      chatArea.appendChild(errorDiv);
+      scrollToBottom();
+    }
+
+    function addWelcomeMessage() {
+      const welcomeDiv = document.createElement('div');
+      welcomeDiv.className = 'bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl p-5 mb-4 shadow-md fade-in';
+      welcomeDiv.innerHTML = `
+        <div class="text-lg font-bold mb-2">
+          <i class="fas fa-papua mr-2"></i> Selamat Datang di Portal Wisata Papua Barat Daya!
+        </div>
+        <div class="text-sm opacity-90 mb-3">
+          Saya adalah asisten AI yang akan membantu Anda menemukan wisata terbaik di Papua Barat Daya.<br>
+          <strong>Teknologi:</strong> XGBoost untuk rekomendasi terakurat.
+        </div>
+        <div class="text-xs">
+          <strong>💡 Contoh pertanyaan:</strong><br>
+          • "wisata di teminabuan"<br>
+          • "sungai murah di maybrat"<br>
+          • "pantai di raja ampat"<br>
+          • "dimana kali kaca"<br>
+          • "rekomendasi wisata keluarga dengan kolam renang"
+        </div>
+        <div class="mt-3 text-xs text-blue-100">
+          <i class="fas fa-lightbulb mr-1"></i> Gunakan tombol titik tiga di bawah untuk melihat pertanyaan cepat.
+        </div>
+      `;
+      chatArea.appendChild(welcomeDiv);
+      scrollToBottom();
+    }
+
+    // === CARD FUNCTIONS ===
+    function createSkeletonCards(count = 3) {
+      const container = document.createElement('div');
+      container.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-4 slide-up';
+      
+      for (let i = 0; i < count; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'bg-white rounded-xl p-4 shadow-md skeleton-animation';
+        skeleton.innerHTML = `
+          <div class="w-full h-48 bg-gray-300 rounded-lg mb-4"></div>
+          <div class="h-5 bg-gray-300 rounded mb-3 w-3/4"></div>
+          <div class="h-4 bg-gray-300 rounded mb-2 w-full"></div>
+          <div class="h-4 bg-gray-300 rounded mb-2 w-2/3"></div>
+          <div class="h-10 bg-gray-300 rounded mt-4"></div>
+        `;
+        container.appendChild(skeleton);
+      }
+      
+      chatArea.appendChild(container);
+      scrollToBottom();
+      return container;
+    }
+
+    async function addCards(cards) {
+      if (!cards || cards.length === 0) {
+        addBotMessage("Maaf, tidak ada rekomendasi yang cocok dengan permintaan Anda.");
+        return;
+      }
+
+      console.log('Menampilkan cards:', cards);
+
+      const container = document.createElement('div');
+      container.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-4 slide-up';
+
+      // Proses semua card secara paralel
+      const cardPromises = cards.map(async (card) => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'bg-white rounded-xl overflow-hidden shadow-lg card-hover transition-all duration-300 cursor-pointer flex flex-col h-full';
+        
+        // Simpan data card sebagai atribut data
+        cardElement.dataset.cardData = JSON.stringify(card);
+        
+        // Ekstrak data dengan fallback values
+        const nama = card.nama || card.Nama || 'Wisata Tanpa Nama';
+        const rating = card.rating || card.Rating || 0;
+        const review = card.review || card.jumlah_review || card.JumlahReview || 0;
+        const harga = card.harga || card.Harga || 'Tidak tersedia';
+        const lokasi = card.lokasi || card.Lokasi || 'Lokasi tidak tersedia';
+        const deskripsi = card.deskripsi || card.Deskripsi || 'Tidak ada deskripsi';
+        const maps = card.maps || card.Maps || '';
+        const kategori = card.kategori || card.Kategori || '';
+        const fitur = card.fitur || card.Fitur || '';
+        
+        // Dapatkan gambar dari folder
+        const wisataId = card.id || card.Id;
+        const imageData = await getValidImagesFromFolder(wisataId, nama);
+        const gambar = imageData.thumbnail;
+
+        cardElement.innerHTML = `
+          <div class="h-48 overflow-hidden no-image-placeholder">
+            <img src="${gambar}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                 alt="${nama}" 
+                 onerror="if (this.src !== '/static/no-image.jpg') this.src='/static/no-image.jpg';">
+          </div>
+          
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="text-lg font-bold text-green-900 mb-2 line-clamp-2">${escapeHtml(nama)}</h3>
+            
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1">
+                <i class="fas fa-star text-yellow-500 text-sm"></i>
+                <span class="font-semibold">${rating.toFixed(1)}</span>
+                <span class="text-gray-500 text-xs">(${review} review)</span>
+              </div>
+              <span class="bg-green-50 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                ${formatPrice(harga)}
+              </span>
+            </div>
+            
+            <div class="flex items-center gap-1 text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt text-green-600 text-xs"></i>
+              <span class="line-clamp-1">${escapeHtml(lokasi)}</span>
+            </div>
+            
+            <p class="text-gray-700 text-sm mb-3 line-clamp-3 flex-1">${escapeHtml(deskripsi)}</p>
+            
+            ${kategori ? `<div class="text-xs text-gray-600 mb-2">
+              <i class="fas fa-tag mr-1"></i> ${escapeHtml(kategori)}
+            </div>` : ''}
+            
+            ${fitur ? `<div class="text-xs text-green-600 mb-3">
+              <i class="fas fa-check-circle mr-1"></i> ${escapeHtml(fitur)}
+            </div>` : ''}
+            
+            <div class="flex gap-2 mt-auto">
+              <button class="detail-button bg-gradient-to-r from-green-700 to-green-600 text-white flex-1 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+                <i class="fas fa-images mr-1"></i> Lihat Detail
+              </button>
+              ${maps ? `<button class="maps-button bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-medium">
+                <i class="fas fa-map-marked-alt"></i>
+              </button>` : ''}
+            </div>
+          </div>
+        `;
+        
+        // Tambahkan event listener untuk detail button
+        const detailBtn = cardElement.querySelector('.detail-button');
+        detailBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const cardData = JSON.parse(cardElement.dataset.cardData);
+          openModal(cardData);
+        });
+        
+        // Tambahkan event listener untuk maps button jika ada
+        const mapsBtn = cardElement.querySelector('.maps-button');
+        if (mapsBtn && maps) {
+          mapsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(maps, '_blank');
+          });
+        }
+        
+        // Event listener untuk klik pada card (selain button)
+        cardElement.addEventListener('click', (e) => {
+          if (!e.target.closest('button')) {
+            const cardData = JSON.parse(cardElement.dataset.cardData);
+            openModal(cardData);
+          }
+        });
+        
+        return cardElement;
+      });
+
+      // Tunggu semua card selesai diproses
+      const cardElements = await Promise.all(cardPromises);
+      cardElements.forEach(cardElement => container.appendChild(cardElement));
+
+      // Hapus skeleton jika ada
+      const skeleton = document.querySelector('.skeleton-animation');
+      if (skeleton && skeleton.parentElement) {
+        skeleton.parentElement.remove();
+      }
+
+      chatArea.appendChild(container);
+      scrollToBottom();
+    }
+
+    // === CAROUSEL FUNCTIONS ===
+    function initSwiper(images = []) {
+      if (swiper) {
+        swiper.destroy(true, true);
+      }
+      
+      const shouldLoop = images && images.length > 1;
+      
+      swiper = new Swiper('.mySwiper', {
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        loop: shouldLoop, // Hanya loop jika ada lebih dari 1 gambar
+        autoplay: shouldLoop ? {
+          delay: 3000,
+          disableOnInteraction: false,
+        } : false,
+        slidesPerView: 1,
+        spaceBetween: 10,
+      });
+    }
+
+    function createCarouselSlides(images) {
+      const swiperWrapper = modalCarousel.querySelector('.swiper-wrapper');
+      swiperWrapper.innerHTML = '';
+      
+      images.forEach((imgSrc, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `
+          <img src="${imgSrc}" alt="Gambar wisata ${index + 1}" 
+               class="w-full h-full object-cover"
+               onerror="if (this.src.includes('data:image')) return; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlMGY1ZTAiLz48dGV4dCB4PSIyMDAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzM4YzU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg=='">
+        `;
+        swiperWrapper.appendChild(slide);
+      });
+      
+      // Reinitialize swiper
+      setTimeout(() => {
+        initSwiper(images);
+      }, 100);
+    }
+
+    // === MODAL FUNCTIONS ===
+    async function openModal(cardData) {
+      currentModalData = cardData;
+      
+      // Dapatkan gambar dari folder untuk carousel
+      const wisataId = cardData.id || cardData.Id;
+      const wisataName = cardData.nama || cardData.Nama;
+      const imageData = await getValidImagesFromFolder(wisataId, wisataName);
+      
+      // Gunakan semua gambar yang valid untuk carousel
+      createCarouselSlides(imageData.carousel);
+      
+      modalTitle.textContent = cardData.nama || cardData.Nama || 'Wisata Tanpa Nama';
+      modalDesc.textContent = cardData.deskripsi || cardData.Deskripsi || 'Tidak ada deskripsi';
+      modalRating.textContent = `${(cardData.rating || cardData.Rating || 0).toFixed(1)}/5`;
+      modalReview.textContent = `${cardData.review || cardData.jumlah_review || cardData.JumlahReview || 0} ulasan`;
+      modalPrice.textContent = formatPrice(cardData.harga || cardData.Harga);
+      modalCategory.textContent = cardData.kategori || cardData.Kategori || '-';
+      modalFacilities.textContent = cardData.fasilitas || cardData.Fasilitas || '-';
+      modalLocation.textContent = cardData.lokasi || cardData.Lokasi || 'Lokasi tidak tersedia';
+      modalHours.textContent = cardData.jam_operasional || cardData.JamOperasional || '08:00-17:00';
+      
+      // // Set facilities
+      // modalFacilities.innerHTML = '';
+      // const facilities = cardData.fasilitas || cardData.Fasilitas;
+      // if (facilities && Array.isArray(facilities) && facilities.length > 0) {
+      //   facilities.forEach(facility => {
+      //     const facilitySpan = document.createElement('span');
+      //     facilitySpan.className = 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs';
+      //     facilitySpan.textContent = facility;
+      //     modalFacilities.appendChild(facilitySpan);
+      //   });
+      // } else {
+      //   modalFacilities.innerHTML = '<span class="text-gray-500">Tidak ada informasi fasilitas</span>';
+      // }
+      
+      // Set maps link
+      const mapsLink = cardData.maps || cardData.Maps;
+      if (mapsLink) {
+        modalMaps.innerHTML = `<a href="${mapsLink}" target="_blank" class="text-blue-600 hover:underline break-all">${mapsLink}</a>`;
+      } else {
+        modalMaps.innerHTML = '<span class="text-gray-500">Link maps tidak tersedia</span>';
+      }
+      
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      // Focus trap for accessibility
+      const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+
+    function openMaps() {
+      if (currentModalData) {
+        const mapsLink = currentModalData.maps || currentModalData.Maps;
+        if (mapsLink) {
+          window.open(mapsLink, '_blank');
+        } else {
+          alert('Link maps tidak tersedia untuk wisata ini.');
+        }
+      }
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      currentModalData = null;
+      
+      // Destroy swiper instance
+      if (swiper) {
+        swiper.destroy(true, true);
+        swiper = null;
+      }
+    }
+
+    // === QUICK QUESTIONS TOGGLE ===
+    function toggleQuickQuestions() {
+      quickQuestionsVisible = !quickQuestionsVisible;
+      
+      if (quickQuestionsVisible) {
+        quickQuestionsContainer.classList.remove('quick-questions-hidden');
+        quickQuestionsContainer.classList.add('quick-questions-visible');
+        expandButton.classList.add('rotated');
+        expandButton.innerHTML = '<i class="fas fa-times"></i>';
+      } else {
+        quickQuestionsContainer.classList.remove('quick-questions-visible');
+        quickQuestionsContainer.classList.add('quick-questions-hidden');
+        expandButton.classList.remove('rotated');
+        expandButton.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+      }
+    }
+
+    // Event listeners for modal
+    closeBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // === API FUNCTIONS ===
+    async function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+      
+      // Tutup quick questions jika terbuka
+      if (quickQuestionsVisible) {
+        toggleQuickQuestions();
+      }
+      
+      userInput.disabled = true;
+      sendButton.disabled = true;
+      
+      addUserMessage(message);
+      userInput.value = '';
+      
+      const skeletonContainer = createSkeletonCards();
+      
+      try {
+        console.log('Mengirim query:', message);
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: message })
+        });
+        
+        const data = await response.json();
+        console.log('Response dari API:', data);
+        
+        if (skeletonContainer.parentElement) {
+          skeletonContainer.remove();
+        }
+        
+        if (data.error) {
+          addErrorMessage(data.error);
+        } else {
+          // Tampilkan respons LLM jika ada
+          if (data.llm_response && data.llm_response.trim()) {
+            addBotMessage(data.llm_response);
+          }
+          
+          // Tampilkan cards jika ada - support multiple response formats
+          let recommendations = null;
+          
+          if (data.recommendations && data.recommendations.length > 0) {
+            recommendations = data.recommendations;
+          } else if (data.cards && data.cards.length > 0) {
+            recommendations = data.cards;
+          } else if (data.data && data.data.length > 0) {
+            recommendations = data.data;
+          }
+          
+          if (recommendations && recommendations.length > 0) {
+            // Tambahkan header untuk cards
+            const cardsHeader = document.createElement('div');
+            cardsHeader.className = 'mt-6 mb-4';
+            cardsHeader.innerHTML = `
+              <h3 class="text-xl font-bold text-white">
+                <i class="fas fa-map-marked-alt mr-2"></i>
+                ${recommendations.length} Rekomendasi Wisata
+              </h3>
+              <p class="text-white text-sm">Klik pada card untuk melihat detail lengkap dan galeri foto</p>
+            `;
+            chatArea.appendChild(cardsHeader);
+            
+            await addCards(recommendations);
+          } else if (!data.llm_response) {
+            addBotMessage("Maaf, tidak ada rekomendasi yang cocok dengan permintaan Anda.");
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error:', error);
+        
+        if (skeletonContainer.parentElement) {
+          skeletonContainer.remove();
+        }
+        
+        addErrorMessage("Terjadi kesalahan pada server. Silakan coba lagi.");
+      } finally {
+        userInput.disabled = false;
+        sendButton.disabled = false;
+        userInput.focus();
+      }
+    }
+
+    function sendQuickQuestion(question) {
+      userInput.value = question;
+      sendMessage();
+    }
+
+    // === EVENT LISTENERS ===
+    sendButton.addEventListener('click', sendMessage);
+    
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+    
+    userInput.addEventListener('input', () => {
+      sendButton.disabled = !userInput.value.trim();
+    });
+
+    expandButton.addEventListener('click', toggleQuickQuestions);
+
+    // === INITIALIZATION ===
+    document.addEventListener('DOMContentLoaded', () => {
+      userInput.focus();
+      setTimeout(addWelcomeMessage, 500);
+      
+      sendButton.disabled = !userInput.value.trim();
+      
+      // Initialize swiper dengan array kosong
+      initSwiper([]);
+      
+      // Event listener untuk menutup quick questions ketika klik di luar
+      document.addEventListener('click', (e) => {
+        if (quickQuestionsVisible && 
+            !quickQuestionsContainer.contains(e.target) && 
+            e.target !== expandButton) {
+          toggleQuickQuestions();
+        }
+      });
+    });
+
+    // Handle image errors globally
+    document.addEventListener('error', (e) => {
+      if (e.target.tagName === 'IMG') {
+        const placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlMGY1ZTAiLz48dGV4dCB4PSIyMDAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzM4YzU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
+        if (!e.target.src.includes('data:image')) {
+          e.target.src = placeholder;
+        }
+      }
+    }, true);
+
+    // Expose functions to global scope
+    window.closeModal = closeModal;
+    window.sendQuickQuestion = sendQuickQuestion;
+    window.openMaps = openMaps;
+    window.toggleQuickQuestions = toggleQuickQuestions;
+  </script>
+</body>
+</html>
