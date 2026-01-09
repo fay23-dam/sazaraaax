@@ -152,6 +152,52 @@ def health_check():
         "dataset_count": len(recommender.raw_dataset) if hasattr(recommender, 'raw_dataset') else 0
     })
 
+
+
+@app.route('/dataset.json')
+def serve_dataset():
+    """Serve dataset.json file"""
+    try:
+        # Coba cari dataset.json di beberapa lokasi yang mungkin
+        possible_paths = [
+            'dataset.json',  # Di root folder
+            '../dataset.json',  # Satu level di atas
+            'static/dataset.json',  # Di folder static
+            'data/dataset.json',  # Di folder data
+        ]
+        
+        for path in possible_paths:
+            if os.path.exists(path):
+                # Baca file dataset.json
+                with open(path, 'r', encoding='utf-8') as f:
+                    dataset_content = json.load(f)
+                
+                print(f"✅ Dataset.json ditemukan di: {path}")
+                print(f"📊 Total destinasi: {len(dataset_content)}")
+                
+                # Tambahkan headers untuk mencegah caching masalah
+                response = jsonify(dataset_content)
+                response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+                response.headers['Pragma'] = 'no-cache'
+                response.headers['Expires'] = '0'
+                
+                return response
+        
+        # Jika tidak ditemukan di mana pun
+        print("❌ Dataset.json tidak ditemukan di lokasi yang mungkin")
+        return jsonify({
+            "error": "File dataset.json tidak ditemukan",
+            "possible_locations": possible_paths
+        }), 404
+        
+    except Exception as e:
+        print(f"❌ Error saat membaca dataset.json: {e}")
+        traceback.print_exc()
+        return jsonify({
+            "error": f"Gagal membaca dataset.json: {str(e)}"
+        }), 500
+
+
 # =============================================
 # STATIC FILE ROUTES
 # =============================================

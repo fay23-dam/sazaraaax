@@ -28,18 +28,9 @@
     }
     
     @keyframes pulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(245, 120, 2, 0.7);
-      }
-      70% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 20px rgba(245, 120, 2, 0);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(245, 120, 2, 0);
-      }
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 120, 2, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(245, 120, 2, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 120, 2, 0); }
     }
     
     .floating {
@@ -47,15 +38,9 @@
     }
     
     @keyframes floating {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
     }
     
     .fade-in {
@@ -66,65 +51,400 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+
+    .destinations-container {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+    
+    .destinations-container.show {
+      max-height: 80vh; /* Batas maksimal tinggi konten */
+      opacity: 1;
+      overflow-y: auto; /* Enable vertical scroll */
+    }
+
+    /* Custom scrollbar */
+    .destinations-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .destinations-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    .destinations-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+    
+    .destinations-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    /* Ensure main container allows scrolling */
+    .main-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* Pedoman section styles */
+    .pedoman-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .pedoman-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .pedoman-card:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
   </style>
 </head>
 <body class="overflow-x-hidden">
   <!-- Main Container -->
-  <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-    
+  <div class="min-h-screen flex flex-col items-center px-4 py-8 md:py-12">
+
     <!-- Logo/Title -->
     <div class="text-center mb-8 fade-in">
-      <div class="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full mb-6 shadow-xl">
-        <i class="fas fa-tree text-white text-4xl"></i>
+      <div class="inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-sm rounded-full mb-4 md:mb-6 shadow-xl">
+        <i class="fas fa-tree text-white text-3xl md:text-4xl"></i>
       </div>
-      <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+      <h1 class="text-3xl md:text-6xl font-bold text-white mb-3 md:mb-4">
         <span class="text-[#f57802]">Papua</span> Barat Daya
       </h1>
-      <p class="text-xl text-white/90 max-w-2xl">
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl">
         Temukan keindahan alam yang menakjubkan dan pengalaman wisata tak terlupakan
       </p>
     </div>
-    
+
     <!-- Hero Image Container -->
-    <div class="relative w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl mb-12 mt-4 floating">
-      <div class="hero-image h-64 md:h-96 w-full flex items-center justify-center">
-        <div class="text-center p-8">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+    <div class="relative w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl mb-8 md:mb-12 mt-2 floating">
+      <div class="hero-image h-56 md:h-96 w-full flex items-center justify-center">
+        <div class="text-center p-6 md:p-8">
+          <h2 class="text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4">
             Portal Rekomendasi Wisata
           </h2>
-          <p class="text-white/90 text-lg max-w-2xl">
+          <p class="text-white/90 text-base md:text-lg max-w-2xl">
             Dapatkan rekomendasi wisata terbaik di Sorong, Raja Ampat, Teminabuan, dan Maybrat
           </p>
         </div>
       </div>
       
       <!-- Decorative elements -->
-      <div class="absolute -top-4 -right-4 w-24 h-24 bg-[#f57802]/30 rounded-full blur-xl"></div>
-      <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-green-500/30 rounded-full blur-xl"></div>
+      <div class="absolute -top-4 -right-4 w-20 h-20 md:w-24 md:h-24 bg-[#f57802]/30 rounded-full blur-xl"></div>
+      <div class="absolute -bottom-4 -left-4 w-24 h-24 md:w-32 md:h-32 bg-green-500/30 rounded-full blur-xl"></div>
     </div>
-    
+
     <!-- Main CTA Button -->
-    <div class="text-center fade-in">
+    <div class="text-center fade-in mb-8 md:mb-12">
       <a href="/chat" class="inline-block">
-        <button class="bg-gradient-to-r from-[#f57802] to-[#e06a00] text-white text-xl font-bold py-5 px-12 rounded-full shadow-2xl pulse-button hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
-          <div class="flex items-center justify-center gap-3">
-            <i class="fas fa-robot text-2xl"></i>
-            <span>MASUK KE PORTAL REKOMENDASI</span>
-            <i class="fas fa-arrow-right text-2xl"></i>
+        <button class="bg-gradient-to-r from-[#f57802] to-[#e06a00] text-white text-lg md:text-xl font-bold py-4 px-8 md:py-5 md:px-12 rounded-full shadow-2xl pulse-button hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+          <div class="flex items-center justify-center gap-2 md:gap-3">
+            <i class="fas fa-robot text-xl md:text-2xl"></i>
+            <span class="text-sm md:text-base">MASUK KE PORTAL REKOMENDASI</span>
+            <i class="fas fa-arrow-right text-xl md:text-2xl"></i>
           </div>
         </button>
       </a>
-      <p class="text-white/70 mt-6 text-lg">
+      <p class="text-white/70 mt-4 md:mt-6 text-base md:text-lg">
         Klik tombol di atas untuk mengakses asisten wisata cerdas
       </p>
     </div>
-    
+
+    <!-- Pedoman Penggunaan Section -->
+    <div class="w-full max-w-6xl mb-8 md:mb-12 fade-in pedoman-section p-6 md:p-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-2 md:gap-3">
+        <i class="fas fa-book-open text-[#f57802] text-xl md:text-2xl"></i> 
+        Pedoman Penggunaan Website
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Cara Bertanya -->
+        <div class="pedoman-card p-5 md:p-6">
+          <h3 class="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 flex items-center gap-2">
+            <i class="fas fa-comment-dots text-[#f57802]"></i>
+            Cara Bertanya
+          </h3>
+          <p class="text-white/90 text-sm md:text-base mb-3">Anda dapat menanyakan rekomendasi wisata dengan cara:</p>
+          <ul class="space-y-2 pl-1">
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-chevron-right text-[#f57802] text-xs mt-1"></i>
+              <span>Mengetikkan pertanyaan di kolom input di bagian bawah halaman.</span>
+            </li>
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-chevron-right text-[#f57802] text-xs mt-1"></i>
+              <span>Menggunakan contoh pertanyaan yang sudah disediakan di tombol cepat.</span>
+            </li>
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-chevron-right text-[#f57802] text-xs mt-1"></i>
+              <span>Pertanyaan dapat berupa lokasi, jenis wisata, atau fasilitas yang diinginkan.</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Contoh Pertanyaan -->
+        <div class="pedoman-card p-5 md:p-6">
+          <h3 class="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 flex items-center gap-2">
+            <i class="fas fa-lightbulb text-[#f57802]"></i>
+            Contoh Pertanyaan
+          </h3>
+          <ul class="space-y-3">
+            <li class="text-white/80 text-sm md:text-base">
+              <span class="font-medium text-white">"wisata di teminabuan"</span>
+              <p class="text-white/70 text-xs md:text-sm mt-1">Mencari wisata di Kabupaten Teminabuan.</p>
+            </li>
+            <li class="text-white/80 text-sm md:text-base">
+              <span class="font-medium text-white">"sungai di maybrat"</span>
+              <p class="text-white/70 text-xs md:text-sm mt-1">Mencari sungai di Kabupaten Maybrat.</p>
+            </li>
+            <li class="text-white/80 text-sm md:text-base">
+              <span class="font-medium text-white">"pantai murah di sorong"</span>
+              <p class="text-white/70 text-xs md:text-sm mt-1">Mencari pantai dengan harga terjangkau di Sorong.</p>
+            </li>
+            <li class="text-white/80 text-sm md:text-base">
+              <span class="font-medium text-white">"dimana kali kaca"</span>
+              <p class="text-white/70 text-xs md:text-sm mt-1">Mencari lokasi dari tempat bernama Kali Kaca.</p>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Fitur Website -->
+        <div class="pedoman-card p-5 md:p-6">
+          <h3 class="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 flex items-center gap-2">
+            <i class="fas fa-cogs text-[#f57802]"></i>
+            Fitur Website
+          </h3>
+          <ul class="space-y-2 pl-1">
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-star text-[#f57802] text-xs mt-1"></i>
+              <span><span class="font-medium text-white">Rekomendasi Wisata:</span> Sistem akan memberikan rekomendasi wisata sesuai dengan pertanyaan Anda.</span>
+            </li>
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-info-circle text-[#f57802] text-xs mt-1"></i>
+              <span><span class="font-medium text-white">Detail Wisata:</span> Klik tombol "Lihat Detail" pada card untuk melihat informasi lengkap termasuk foto, fasilitas, dan jam operasional.</span>
+            </li>
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-map-marked-alt text-[#f57802] text-xs mt-1"></i>
+              <span><span class="font-medium text-white">Peta:</span> Setiap wisata dilengkapi dengan link Google Maps untuk memudahkan navigasi.</span>
+            </li>
+            <li class="flex items-start gap-2 text-white/80 text-sm md:text-base">
+              <i class="fas fa-bolt text-[#f57802] text-xs mt-1"></i>
+              <span><span class="font-medium text-white">Pertanyaan Cepat:</span> Gunakan tombol titik tiga di samping kolom input untuk membuka pertanyaan cepat.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Destinasi Section -->
+    <div class="w-full max-w-6xl fade-in mb-8">
+      <div class="flex flex-col items-center mb-6">
+        <h2 class="text-xl md:text-3xl font-bold text-white text-center mb-4">Destinasi Wisata Terdaftar</h2>
+        
+        <!-- Dropdown Toggle Button -->
+        <button id="toggle-destinations" class="bg-gradient-to-r from-[#2a8cff] to-[#1a5bbf] text-white font-semibold text-sm md:text-base py-3 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 md:gap-3 group">
+          <span id="toggle-text">Lihat Semua Destinasi</span>
+          <i id="toggle-icon" class="fas fa-chevron-down transition-transform duration-300 group-hover:scale-110"></i>
+        </button>
+      </div>
+
+      <!-- Destinations Container (Hidden by default) -->
+      <div id="destinations-container" class="destinations-container rounded-2xl bg-white/10 backdrop-blur-sm p-4 md:p-6 border border-white/20">
+        <div id="destinasi-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"></div>
+        
+        <!-- Close Button (inside container) -->
+        <div class="text-center mt-6 md:mt-8 pt-6 border-t border-white/20">
+          <button id="close-destinations" class="bg-gradient-to-r from-[#ff4757] to-[#ff3742] text-white font-semibold text-sm md:text-base py-3 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 md:gap-3 mx-auto">
+            <i class="fas fa-times"></i>
+            <span>Tutup Destinasi</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="mt-16 text-center text-white/60">
-      <p class="mb-2">© 2024 Portal Wisata Papua Barat Daya</p>
-      <p class="text-sm">Sorong • Raja Ampat • Teminabuan • Maybrat</p>
+    <footer class="mt-8 md:mt-16 text-center text-white/60 pb-4 md:pb-8">
+      <p class="mb-2 text-sm md:text-base">© 2024 Portal Wisata Papua Barat Daya</p>
+      <p class="text-xs md:text-sm">Sorong • Raja Ampat • Teminabuan • Maybrat</p>
     </footer>
-    
+
   </div>
+
+<script>
+  // Fungsi untuk mengubah "Nama Tempat" menjadi "nama-tempat"
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  // State untuk tracking apakah destinasi ditampilkan
+  let destinationsVisible = false;
+
+  // Fungsi untuk toggle tampilan destinasi
+  function toggleDestinations() {
+    const container = document.getElementById('destinations-container');
+    const toggleIcon = document.getElementById('toggle-icon');
+    const toggleText = document.getElementById('toggle-text');
+    const toggleBtn = document.getElementById('toggle-destinations');
+    
+    destinationsVisible = !destinationsVisible;
+    
+    if (destinationsVisible) {
+      container.classList.add('show');
+      toggleIcon.classList.add('rotate-180');
+      toggleText.textContent = 'Sembunyikan Destinasi';
+      toggleBtn.classList.remove('from-[#2a8cff]', 'to-[#1a5bbf]');
+      toggleBtn.classList.add('from-[#4CAF50]', 'to-[#2E7D32]');
+      // Scroll ke container destinasi
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      container.classList.remove('show');
+      toggleIcon.classList.remove('rotate-180');
+      toggleText.textContent = 'Lihat Semua Destinasi';
+      toggleBtn.classList.remove('from-[#4CAF50]', 'to-[#2E7D32]');
+      toggleBtn.classList.add('from-[#2a8cff]', 'to-[#1a5bbf]');
+    }
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.getElementById('destinasi-list');
+    if (!container) return;
+
+    // Setup toggle button
+    const toggleBtn = document.getElementById('toggle-destinations');
+    const closeBtn = document.getElementById('close-destinations');
+    
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', toggleDestinations);
+    }
+    
+    if (closeBtn) {
+      closeBtn.addEventListener('click', toggleDestinations);
+    }
+
+    try {
+      const response = await fetch('../dataset.json');
+      if (!response.ok) throw new Error('Gagal memuat dataset.json');
+      const dataset = await response.json();
+      const destinations = Object.values(dataset);
+
+      // Update jumlah destinasi di tombol
+      const toggleText = document.getElementById('toggle-text');
+      if (toggleText && destinations.length > 0) {
+        toggleText.textContent = `Lihat Semua Destinasi (${destinations.length})`;
+      }
+
+      for (const item of destinations) {
+        const card = document.createElement('div');
+        card.className = 'bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-2xl p-4 md:p-5 text-white card-hover border border-white/25 shadow-xl';
+
+        // Format harga
+        const harga = item.harga_min === 0 ? 'Gratis' : 
+                      item.harga_min === item.harga_max ? `Rp${item.harga_min.toLocaleString()}` :
+                      `Rp${item.harga_min.toLocaleString()} – Rp${item.harga_max.toLocaleString()}`;
+
+        // URL Google Maps
+        const mapsUrl = item.lokasi.maps && item.lokasi.maps.trim() !== "" 
+          ? item.lokasi.maps 
+          : '#';
+
+        // Slug dari nama
+        const imageSlug = slugify(item.nama);
+        const imageUrl = `../static/${imageSlug}/1.jpg`;
+
+        card.innerHTML = `
+          <div class="relative overflow-hidden rounded-xl mb-3 md:mb-4 aspect-video">
+            <img src="${imageUrl}" 
+                 alt="${item.nama}" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                 onerror="this.src='https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          
+          <div class="space-y-3 md:space-y-4">
+            <div class="flex items-start justify-between">
+              <h3 class="text-lg md:text-xl font-bold line-clamp-1 flex-1 mr-2">${item.nama}</h3>
+              <div class="text-white text-sm md:text-base font-bold py-1 whitespace-nowrap">
+                ${harga}
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-2 text-xs md:text-sm opacity-90">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>${item.lokasi.kota || 'Papua Barat Daya'}</span>
+            </div>
+            
+            <p class="text-xs md:text-sm opacity-80 line-clamp-2 leading-relaxed">
+              ${item.deskripsi || 'Tempat wisata yang menakjubkan di Papua Barat Daya.'}
+            </p>
+            
+            ${mapsUrl !== '#' ? `
+              <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" 
+                 class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 md:px-4 py-2 rounded-lg transition duration-300 w-full justify-center mt-1 md:mt-2">
+                <i class="fas fa-map-marked-alt"></i>
+                <span class="text-xs md:text-sm">Lihat di Google Maps</span>
+              </a>
+            ` : ''}
+          </div>
+        `;
+        container.appendChild(card);
+      }
+
+      if (destinations.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8 md:py-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-full mb-3 md:mb-4">
+              <i class="fas fa-map-marker-alt text-2xl md:text-3xl text-white/50"></i>
+            </div>
+            <p class="text-white/70 text-base md:text-lg">Belum ada destinasi wisata terdaftar.</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error memuat dataset:', error);
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8 md:py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-red-500/20 rounded-full mb-3 md:mb-4">
+            <i class="fas fa-exclamation-triangle text-2xl md:text-3xl text-red-400"></i>
+          </div>
+          <p class="text-red-300 text-base md:text-lg">Gagal memuat daftar destinasi.</p>
+          <p class="text-white/60 text-xs md:text-sm mt-2">Pastikan file dataset.json tersedia.</p>
+        </div>
+      `;
+    }
+  });
+</script>
 </body>
 </html>
